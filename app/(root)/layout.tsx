@@ -2,11 +2,11 @@ import {ReactNode} from 'react'
 import Header from "@/components/Header";
 
 // Setup the layout of the main page
-const Layout = ({ children }: { children: ReactNode}) => {
+const Layout = ({children}: { children: ReactNode }) => {
     return (
         <main className="root-container">
             <div className="mx-auto max-w-7xl">
-               <Header />
+                <Header/>
                 <div className="mt-20 pb-20">
                     {children}
                 </div>
