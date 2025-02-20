@@ -8,13 +8,14 @@ const BookOverview = ({
                           author,
                           genre,
                           rating,
-                          totalCopies,
-                          availableCopies,
+                          total_copies,
+                          available_copies,
                           description,
                           color,
-                          cover
+                          cover,
                       }: Book) => {
-    return <section className="book-overview">
+    return (
+        <section className="book-overview">
         {/*Add Book Information*/}
         <div className="flex flex-1 flex-col gap-5">
             {/*Add Book Title*/}
@@ -36,8 +37,8 @@ const BookOverview = ({
             </div>
             {/*Add Book Copies*/}
             <div className="book-copies">
-                <p>Total Books: <span>{totalCopies}</span></p>
-                <p>Available Books: <span>{availableCopies}</span></p>
+                <p>Total Books: <span>{total_copies}</span></p>
+                <p>Available Books: <span>{available_copies}</span></p>
             </div>
             {/*Add Book Description*/}
             <p className="book-description">
@@ -69,5 +70,6 @@ const BookOverview = ({
 
         </div>
     </section>
+    )
 }
 export default BookOverview
