@@ -3,6 +3,7 @@ import React from 'react'
 // import class names
 import {cn} from "@/lib/utils";
 import Image from "next/image";
+import BookCoverSvg from "@/components/BookCoverSvg";
 
 type BookCoverVariant = 'extraSmall' | 'small' | 'medium' | 'regular' | 'wide'
 // Add Book cover sizes
@@ -15,10 +16,10 @@ const variantStyles: Record<BookCoverVariant, string> = {
 }
 
 interface Props {
-    className: string;
+    className?: string;
     variant?: BookCoverVariant;
     coverColor: string;
-    coverUrl: string;
+    coverImage: string;
 }
 
 // Add Book Cover properties
@@ -26,15 +27,24 @@ const BookCover = ({
                        className,
                        variant = 'regular',
                        coverColor = '#012B48',
-                       coverUrl = "https://placehold.co/400x600.png",
+                       coverImage = "https://placehold.co/400x600.png",
                    }: Props) => {
     return (
         // Provide the book cover size
-        <div className={cn('relative transition-all duration-300', variantStyles[variant], className)}>
-            BOOK SIDE SVG
+        <div className={cn(
+            'relative transition-all duration-300',
+            variantStyles[variant],
+            className,
+        )}>
+            <BookCoverSvg coverColor={coverColor} />
 
-            <div className="absolute z-10" style={{left: '12%', width: '87.5%', height: '88%'}}>
-                <Image src={coverUrl} alt="Book cover" fill className="rounded-sm object-fill"/>
+            <div className="absolute z-10"
+                 style={{left: '12%', width: '87.5%', height: '88%'}}>
+                <Image
+                    src={coverImage}
+                    alt="Book cover"
+                    fill
+                    className="rounded-sm object-fill"/>
             </div>
         </div>
     )
