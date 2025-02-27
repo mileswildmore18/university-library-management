@@ -25,7 +25,13 @@ interface Props<T extends FieldValues> {
     type: 'SIGN_IN | SIGN_UP';
 }
 
-const AuthForm = <T extends FieldValues>({type, schema, defaultValues, onSubmit}: Props<T>) => {
+const AuthForm = <T extends FieldValues>({
+                                             type,
+                                             schema,
+                                             defaultValues,
+                                             onSubmit
+                                         }: Props<T>) => {
+    // Check if user is signed in or not
     const isSignIn = type === "SIGN_IN";
     // 1. Define your form.
     const form: UseFormReturn<T> = useForm({
@@ -39,8 +45,12 @@ const AuthForm = <T extends FieldValues>({type, schema, defaultValues, onSubmit}
     return (
         <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-semibold text-white">
+                {/* Display a message for people wo are signed in or not */}
                 {isSignIn ? "Welcome back to BookWise" : "Create your library account"}
             </h1>
+            <p className="text-light-100">{isSignIn
+                ? 'Access the vast collection of resources, and stay updated'
+                : 'Please complete all fields and upload a valid university ID to gain access to the library'}</p>
             {/* Add the form */}
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
