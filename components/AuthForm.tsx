@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import Link from "next/link";
+import {FIELD_NAMES, FIELD_TYPES} from "@/constants";
+import ImageUpload from "@/components/ImageUpload";
 
 // Add the auth form generic type with default function of T
 interface Props<T extends FieldValues> {
@@ -60,13 +62,27 @@ const AuthForm = <T extends FieldValues>({
 
                     {Object.keys(defaultValues).map((field) => (
                         <FormField
+                            key={field}
                             control={form.control}
-                            name="username"
+                            name={field as Path<T>}
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Username</FormLabel>
+                                    {/*Get information from the field names in index*/}
+                                    <FormLabel
+                                        className="capitalize">{FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="shadcn" {...field} />
+                                        {field.name === 'universityCard' ? (
+                                            <ImageUpload/>
+                                        ) : (
+                                            <Input
+                                                required
+                                                type={
+                                                    FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]
+                                                }
+                                                {...field}
+                                            className="form-input"
+                                            />
+                                        )}
                                     </FormControl>
                                     <FormDescription>
                                         This is your public display name.
