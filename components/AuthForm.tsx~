@@ -25,7 +25,7 @@ interface Props<T extends FieldValues> {
     defaultValues: T;
     // Check if credentials from user fills are correct on sign in or sign up
     onSubmit: (data: T) => Promise<{ success: boolean, error?: string }>;
-    type: 'SIGN_IN' | 'SIGN_UP';
+    type: 'SIGN_IN | SIGN_UP';
 }
 
 const AuthForm = <T extends FieldValues>({
