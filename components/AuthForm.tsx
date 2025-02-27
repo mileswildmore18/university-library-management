@@ -15,6 +15,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
+import Link from "next/link";
 
 // Add the auth form generic type with default function of T
 interface Props<T extends FieldValues> {
@@ -73,6 +74,17 @@ const AuthForm = <T extends FieldValues>({
                     <Button type="submit">Submit</Button>
                 </form>
             </Form>
+
+            <p className="text-center text-base font-medium">
+                {isSignIn ? "New to BookWise? " : "Already have an account? "}
+
+                <Link
+                    href={isSignIn ? '/sign-up' : '/sign-in'}
+                    className='font-bold text-primary'
+                >
+                    {isSignIn ? "Create an account" : "Sign in"}
+                </Link>
+            </p>
         </div>
     )
 };
