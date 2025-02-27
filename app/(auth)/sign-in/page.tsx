@@ -14,6 +14,6 @@ const Page = () => (
         onSubmit={() => {
 
         }}
-        />
+    />
 )
 export default Page
