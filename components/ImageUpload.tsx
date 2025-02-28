@@ -3,6 +3,7 @@
 import {IKImage, ImageKitProvider, IKUpload,} from "imagekitio-next";
 import config from "@/lib/config";
 import {useRef, useState} from "react";
+import Image from "next/image";
 
 // Get the imagekit configuration
 const {env: {imagekit: {publicKey, urlEndpoint}}} = config;
@@ -35,14 +36,38 @@ const ImageUpload = () => {
     // Add image reference
     const ikUploadRef = useRef(null);
     const [file, setFile] = useState<{ filePath: string} | null> (null);
+
+    const onError = () => {}
+    const onSuccess = () => {}
     // Add Image Upload
     return <ImageKitProvider
         publicKey={publicKey}
         urlEndpoint={urlEndpoint}
         authenticator={authenticator}>
+    {/*  Hide the upload button uploading the image and provide success or error messages uploading the file */}
     <IKUpload
-
+        className="hidden"
+        ref={ikUploadRef}
+        onError={onError}
+        onSuccess={onSuccess}
+        fileName="test-upload.png"
     />
+        {/* Add upload button*/}
+        <button className="upload-btn">
+            <Image src="/icons/upload.svg" alt="upload-icon" width={20} height={20}/>
+            <p className="text-base text-light-100">Upload a File</p>
+
+            {file && <p className="upload-filename">{file.filePath}</p>}
+        </button>
+
+        {file && (
+            <IKImage
+                alt={file.filePath}
+                path={file.filePath}
+                width={500}
+                height={500}
+            />
+        )}
     </ImageKitProvider>
 }
 export default ImageUpload
