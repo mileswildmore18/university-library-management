@@ -53,8 +53,21 @@ const ImageUpload = () => {
         fileName="test-upload.png"
     />
         {/* Add upload button*/}
-        <button className="upload-btn">
-            <Image src="/icons/upload.svg" alt="upload-icon" width={20} height={20}/>
+        <button className="upload-btn" onClick={(e) => {
+            e.preventDefault();
+            // Make button open user's computer browser for image
+            if(ikUploadRef.current) {
+                // @ts-ignore
+                ikUploadRef.current?.click();
+            }
+        }}>
+            <Image
+                src="/icons/upload.svg"
+                alt="upload-icon"
+                width={20}
+                height={20}
+                className="object-contain"
+            />
             <p className="text-base text-light-100">Upload a File</p>
 
             {file && <p className="upload-filename">{file.filePath}</p>}
