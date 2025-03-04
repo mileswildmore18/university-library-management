@@ -4,7 +4,7 @@ import {IKImage, ImageKitProvider, IKUpload,} from "imagekitio-next";
 import config from "@/lib/config";
 import {useRef, useState} from "react";
 import Image from "next/image";
-
+import { toast } from "sonner";
 // Get the imagekit configuration
 const {env: {imagekit: {publicKey, urlEndpoint}}} = config;
 
@@ -41,10 +41,15 @@ const ImageUpload = ({onFileChange}: {onFileChange: (filePath : string) => void;
     // Check if the file is uploaded successfully or failed
     const onError = (error: any) => {
         console.log(error);
+
+        toast(`Your image could not be uploaded. Please try again.`)
     }
     const onSuccess = (res: any) => {
         setFile(res);
         onFileChange(res.filePath);
+
+        toast(`${res.filePath} uploaded successfully!`)
+
     };
     // Add Image Upload
     return <ImageKitProvider
