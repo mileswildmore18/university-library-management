@@ -31,14 +31,21 @@ const authenticator = async () => {
         throw new Error(`Authentication request failed: ${error.message}`)
     }
 }
-
-const ImageUpload = () => {
+// Destructure the imagekit configuration
+const ImageUpload = ({onFileChange}: {onFileChange: (filePath : string) => void;
+}) => {
     // Add image reference
     const ikUploadRef = useRef(null);
     const [file, setFile] = useState<{ filePath: string} | null> (null);
 
-    const onError = () => {}
-    const onSuccess = () => {}
+    // Check if the file is uploaded successfully or failed
+    const onError = (error: any) => {
+        console.log(error);
+    }
+    const onSuccess = (res: any) => {
+        setFile(res);
+        onFileChange(res.filePath);
+    };
     // Add Image Upload
     return <ImageKitProvider
         publicKey={publicKey}
