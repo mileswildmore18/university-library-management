@@ -1,5 +1,5 @@
 // Provide secret authentication
-import NextAuth from "next-auth"
+import NextAuth, { User } from "next-auth"
 
 import CredentialsProvider from "next-auth/providers/credentials"
 import {db} from "@/database/drizzle";
@@ -12,6 +12,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     session: {
         strategy: 'jwt',
     },
+    // Check if email and password is valid
     providers: [
         CredentialsProvider({
             async authorize(credentials) {
@@ -27,11 +28,18 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 if (user.length === 0) return null;
 
                 // Check for password
-                const isPasswordValid = await compare(credentials.password.toString(), user[0].password);
+                const isPasswordValid = await compare(
+                    credentials.password.toString(),
+                    user[0].password);
+                // Check if password is not valid
                 if (!isPasswordValid) return null;
+                // Return user's information
+                return {
+                    id: user[0].id.toString(),
+                    email: user[0].email,
+                    name: user[0].fullName,
+                } as User;
             }
-
-
-        })
+        }),
     ],
 })
