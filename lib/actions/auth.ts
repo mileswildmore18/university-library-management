@@ -8,7 +8,7 @@ import { hash } from "bcryptjs";
 import {signIn} from "@/auth";
 
 // Add sign in with the user's credentials
-const signInWithCredentials = async (params: Pick<AuthCredentials, 'email' | 'password'>) => {
+export const signInWithCredentials = async (params: Pick<AuthCredentials, 'email' | 'password'>) => {
     const { email, password } = params;
     // try to find the user
     try {
@@ -31,7 +31,7 @@ const signInWithCredentials = async (params: Pick<AuthCredentials, 'email' | 'pa
     }
 }
 
-const signUp= async (params: AuthCredentials) => {
+export const signUp= async (params: AuthCredentials) => {
     const { fullName, email, universityId, password, universityCard } = params;
 
     // check if the user already exists
