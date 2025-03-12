@@ -1,8 +1,14 @@
 // Add the layout of the authentication
 import React, {ReactNode} from 'react'
 import Image from "next/image";
+import {redirect} from "next/navigation"
+import {auth} from "@/auth";
 
-const Layout = ({children}: { children: ReactNode }) => {
+const Layout = async ({children}: { children: ReactNode }) => {
+    // Check if user is logged in and redirect them to the home page
+    const session = await auth();
+
+    if(session) redirect('/')
     return (
         <main className="auth-container">
             <section className="auth-form">

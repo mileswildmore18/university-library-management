@@ -1,8 +1,15 @@
 import {ReactNode} from 'react'
 import Header from "@/components/Header";
+import {auth} from "@/auth";
+import {redirect} from "next/navigation"
+import {red} from "next/dist/lib/picocolors";
 
-// Setup the layout of the main page
-const Layout = ({children}: { children: ReactNode }) => {
+// Set up the layout of the main page
+const Layout = async ({children}: { children: ReactNode }) => {
+
+    const session = await auth();
+    // Redirect to sign in is user is not logged in
+    if (!session) redirect('/sign-in');
     return (
         <main className="root-container">
             <div className="mx-auto max-w-7xl">
