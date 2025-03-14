@@ -1,11 +1,13 @@
 "use client"
-import React from 'react'
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import Link from 'next/link'
 import {usePathname} from "next/navigation";
-import {cn} from "@/lib/utils";
+import {cn, getInitials} from "@/lib/utils";
 import Image from "next/image";
+import {Session} from "next-auth";
 
-const Header = () => {
+// Add session from next auth
+const Header = ({session}: {session: Session}) => {
     const pathname = usePathname();
     return <header className="my-10 flex justify-between gap-5">
         {/*    Add link   */}
@@ -19,7 +21,13 @@ const Header = () => {
                 </Link>
             </li>
             <li>
-                <Link href='/my-profile'>
+                <Link href="/my-profile">
+                    {/*Add avatar of user logged in*/}
+                    <Avatar>
+
+                        <AvatarFallback className="bg-amber-100">{getInitials(session?.user?.name || "IN")}
+                        </AvatarFallback>
+                    </Avatar>
 
                 </Link>
             </li>
